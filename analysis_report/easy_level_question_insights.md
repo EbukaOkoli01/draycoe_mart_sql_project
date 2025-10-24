@@ -1,9 +1,8 @@
-This document summarizes each SQL question solved in the draycoe_mart Project. 
+SECTION 1 - EASY 
 
+This document summarizes each SQL question solved in the draycoe_mart Project. 
 The report is organized into categories - from Easy to Intermediate, Advanced, and finally the DATETIME tasks. 
 It explains the logic applied in solving each question and highlights the key insights derived from the analysis.
-
-SECTION 1 - EASY 
 
 Q1 - Find the total number of customers in the database
     Explanation - To solve this, I used the "COUNT" function together with the wildcard (*). 
