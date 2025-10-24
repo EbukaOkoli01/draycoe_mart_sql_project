@@ -86,6 +86,43 @@ Q13 Find the produts that generated total sales above 100,000
                                         GROUP BY p.product_name
                                         HAVING SUM(pay.amount) > 100000
                                         ORDER BY total_per_products DESC ;
-
+Insight - Three products had an individual total sales above 100,000 with laptop sales alone doing 960,000. It must really be in a high demand probably due to the new wave of tech.                          
 RESULT - 
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/5965977c-11cd-42b1-b79c-520248a8cbcf" />
+
+Q14 Find the number of orders placed per month 
+      Explanation - To find the orders placed per month, I had to first EXTRACT the month from the order date after then, I did the sum of the quantity placed per month accompanied with a GROUP BY because SUM() function is an aggregate.
+      
+                             CODE-      SELECT 
+                                                 EXTRACT(MONTH FROM order_date) AS months,
+                                                 SUM(quantity) AS orders_per_month
+                                         FROM orders
+                                         GROUP BY EXTRACT(MONTH FROM order_date) ;
+
+-- method 2
+
+                                        SELECT 
+                                                  DATE_FORMAT(order_date , '%b') AS months,
+                                                  SUM(quantity) orders_per_month
+                                        FROM orders
+                                        GROUP BY DATE_FORMAT(order_date , '%b')
+                                        ORDER BY orders_per_month DESC ; 
+Insight - I realised that while orders were made in 7 months in 2025, the highest order made was in june which was 3.                                                                                              
+RESULT - 
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/44b06a89-8a94-45cf-997b-11b48d138189" />
+
+Q15 Find the customer who spent morethan 200,000 in total
+      Explanation - Every business wants to know their top customers, those customers who always patronise often. To carry out this task, I had to JOIN the orders table to the payments table after then, I did the sum of the amount while grouping the customers ID.
+      
+                             CODE-      SELECT 
+                                                o.customer_id,
+                                                SUM(pay.amount) AS total_amount_spent_per_customer
+                                        FROM orders AS o
+                                        LEFT JOIN payments AS pay
+                                        ON o.order_id = pay.order_id
+                                        GROUP BY o.customer_id
+                                        HAVING SUM(pay.amount) > 200000
+                                        ORDER BY total_amount_spent_per_customer DESC; ;
+Insight - Four customers emerged to have a total sales above 200,000 while customer with ID 4 had a total of 570,000, He must be MVP.                                                                                
+RESULT - 
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/e06eec21-1be8-480f-8cc0-c6e7f8cb8aa4" />
